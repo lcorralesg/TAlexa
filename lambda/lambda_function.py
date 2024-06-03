@@ -17,6 +17,8 @@ client = OpenAI(
         api_key=""
 )
 
+api_url = ""
+
 class LaunchRequestHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
     def can_handle(self, handler_input):
@@ -100,7 +102,7 @@ class SatisfactionRatingIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         slots = handler_input.request_envelope.request.intent.slots
         rating = slots["rating"].value
-        requests.post("https://alexa-docs.onrender.com/rate/?rating=" + rating)
+        requests.post(api_url + "rate/?rating=" + rating)
 
         if rating == "1":
             speak_output = f"Has calificado con {rating} estrella. Estamos trabajando para mejorar nuestro servicio. ¡Gracias por tu retroalimentación!"
@@ -142,7 +144,7 @@ def generate_gpt_response(chat_history, new_question):
             messages.append({"role": "user", "content": question})
             messages.append({"role": "assistant", "content": answer})
         
-        api = "https://alexa-docs.onrender.com/search/" + new_question.replace(" ", "_") + "?"
+        api = api_url + new_question.replace(" ", "_") + "?"
         docs = requests.get(api).json()
 
         messages.append({"role": "assistant", "content": "I found this documents that may help you: {}".format(json.dumps(docs))})
