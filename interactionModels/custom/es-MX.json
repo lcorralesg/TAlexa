@@ -1,0 +1,141 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "intents": [
+        {
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.Person"
+            }
+          ],
+          "name": "GptQueryIntent",
+          "samples": [
+            "{query}"
+          ]
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": [
+            "Cancelar acción",
+            "Detener operación",
+            "Anular la acción",
+            "Interrumpir",
+            "No continuar"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": [
+            "Ayuda",
+            "Como se usa esta skill",
+            "Que puedo hacer aqui",
+            "Dime como funciona esto",
+            "Como puedo usar la skill",
+            "Necesito ayuda"
+          ]
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": [
+            "Detener la skill",
+            "Pausar",
+            "Parar",
+            "Dejar de usar",
+            "Alto total"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "slots": [
+            {
+              "name": "rating",
+              "type": "Rating"
+            }
+          ],
+          "name": "SatisfactionRatingIntent",
+          "samples": [
+            "Le doy un {rating} a la skill",
+            "Mi calificacion es {rating}",
+            "Un {rating}",
+            "Califico con {rating}",
+            "Le doy {rating}"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "InitSurveyIntent",
+          "samples": [
+            "Iniciar encuesta",
+            "Empezar encuesta de satisfaccion",
+            "Quiero hacer la encuesta",
+            "Completar encuesta",
+            "Hacer encuesta de satisfaccion"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "synonyms": [
+                  "uno",
+                  "1 estrella",
+                  "una estrella",
+                  "una"
+                ],
+                "value": "1"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "dos",
+                  "2 estrellas",
+                  "dos estrellas"
+                ],
+                "value": "2"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "tres",
+                  "3 estrellas",
+                  "tres estrellas"
+                ],
+                "value": "3"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "cuatro",
+                  "4 estrellas",
+                  "cuatro estrellas"
+                ],
+                "value": "4"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "cinco",
+                  "5 estrellas",
+                  "cinco estrellas"
+                ],
+                "value": "5"
+              }
+            }
+          ],
+          "name": "Rating"
+        }
+      ],
+      "invocationName": "asistente consultas"
+    }
+  }
+}
