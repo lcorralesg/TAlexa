@@ -1,4 +1,4 @@
-# Template de Alexa Skill para importar no Alexa Developer Console
+# Template de Alexa Skill para importar en Alexa Developer Console
 
 ## Usar
 
