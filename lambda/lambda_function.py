@@ -139,7 +139,7 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
 
 def generate_gpt_response(chat_history, new_question):
     try:
-        messages = [{"role": "system", "content": "You are a helpful assistant, you have a conversation with a human who are trying to solve his doubts of Tecsup in Perú, use the documents to answer the question and don't mention them in the conversation, if you don't find the answer in the documents or documents are empty, dont try to answer it, just say that you don't know the answer, if you have the aswer and is same as some aswer in chat history, try to use paraphrasing"}]
+        messages = [{"role": "system", "content": "You are a helpful assistant, you have a conversation with a human who are trying to solve his doubts of Tecsup, use the documents to answer the question and don't mention them in the conversation, Answer as briefly and simply as possible, if you don't find the answer in the documents or the documents have information who is not useful or not have relation with the question, just say that you don't know the answer like this: 'Lo siento, no tengo la información para responder esa pregunta. ¿Te puedo ayudar con otra consulta?'"}]
         for question, answer in chat_history[-4:]:
             messages.append({"role": "user", "content": question})
             messages.append({"role": "assistant", "content": answer})
@@ -147,7 +147,7 @@ def generate_gpt_response(chat_history, new_question):
         api = api_url + new_question.replace(" ", "_") + "?"
         docs = requests.get(api).json()
 
-        messages.append({"role": "assistant", "content": "I found this documents that may help you: {}".format(json.dumps(docs))})
+        messages.append({"role": "assistant", "content": "I found this documents use to aswer the question, if you don't find the answer in the documents or documents are empty, dont try to answer it, just say that you don't know the answer like this: 'Lo siento, no tengo la información para responder esa pregunta. ¿Te puedo ayudar con otra consulta?': {}".format(json.dumps(docs))})
         
         messages.append({"role": "user", "content": new_question})
         print(docs)
@@ -158,6 +158,9 @@ def generate_gpt_response(chat_history, new_question):
             n=1,
             temperature=0.6
         )
+        if response.choices[0].message.content == "Lo siento, no tengo la información para responder esa pregunta. ¿Te puedo ayudar con otra consulta?":
+            requests.post(api_url + "insert_question_nr/?question=" + new_question.replace(" ", "_"))
+
         return response.choices[0].message.content
     except Exception as e:
         print(f"Error generating response: {str(e)}")
